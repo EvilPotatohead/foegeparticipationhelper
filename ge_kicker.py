@@ -38,7 +38,7 @@ def rules_flouted(player):
 
 
 # change csv file as required
-with open("c:/Users/toby/.vscode/Files/participation_25112024.csv", "r") as data_set:
+with open("", "r") as data_set:
     player_data = data_set.readlines()
 
 weeks = []
