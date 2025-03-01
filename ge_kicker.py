@@ -4,6 +4,7 @@
 import csv
 
 # some kind of enum thing would be good to define rules
+MIN_ENCOUNTERS = 32
 
 # returns number of encounters by a given player for a certain week
 # returns -1 if member was not in guild for that week
@@ -17,16 +18,16 @@ def encounters(week, player_name, player_data):
 
 # return 0 if no rules broken
 # return 1 if two consecutive weeks of 0 GE
-# return 2 if four out of five weeks under minimum (< 32 GE)
-# return 3 if < 32 encounters - needs to be messaged
+# return 2 if four out of five weeks under minimum (< MIN_ENCOUNTERS GE)
+# return 3 if < MIN_ENCOUNTERS encounters - needs to be messaged
 # feed this members from member_log
 def rules_flouted(player):
     if int(player[-1]) == 0 and int(player[-2]) == 0:
         return "1"
-    elif int(player[-1]) < 32 and int(player[-1]) >= 0:
+    elif int(player[-1]) < MIN_ENCOUNTERS and int(player[-1]) >= 0:
         under_min = 0
         for week in player[2:]:
-            if int(week) < 32 and int(week) >= 0:
+            if int(week) < MIN_ENCOUNTERS and int(week) >= 0:
                 under_min += 1
         if under_min >= 4:
             return "2"
@@ -78,7 +79,7 @@ for player in member_log:
     if int(player[-1]) == 1:
         print(f"{player[0]} - ({player[1]}) ({player[2]}) ({player[3]}) ({player[4]}) ({player[5]})")
 
-print("\nFour consecutive weeks of <32 GE")
+print(f"\nFour consecutive weeks of <{MIN_ENCOUNTERS} GE")
 for player in member_log:
     if int(player[-1]) == 2:
         print(f"{player[0]} - ({player[1]}) ({player[2]}) ({player[3]}) ({player[4]}) ({player[5]})")
