@@ -1,4 +1,5 @@
 # prints list of players to kick for poor GE participation
+# must add the full path name of the .csv file which contains participation info
 # started 08/09/2024
 
 import csv
@@ -36,10 +37,11 @@ def rules_flouted(player):
     else:
         return "0"
 
-
+input_csv = input("Please enter the full file path of the .csv containing participation information: ")
+input_csv.strip()
 
 # change csv file as required
-with open("", "r") as data_set:
+with open(f"{input_csv}", "r") as data_set:
     player_data = data_set.readlines()
 
 weeks = []
